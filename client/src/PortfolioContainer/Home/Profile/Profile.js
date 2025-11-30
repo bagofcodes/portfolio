@@ -17,7 +17,7 @@ function Profile() {
                     <a href='https://www.instagram.com/_invincible_.12/'>
                     <i className="fa fa-instagram"></i>
                     </a>
-                    <a href='https://www.linkedin.com/in/anshumali-shaw12/'>
+                    <a href='https://www.linkedin.com/in/anshumalishaw1204/'>
                     <i className="fa fa-linkedin"></i>
                     </a>
                     <a href='https://github.com/bagofcodes'>
@@ -43,10 +43,10 @@ function Profile() {
                       <Typical
                         loop={Infinity}
                         steps={[
-                          "Enthusiatic Dev 😎",1000,
-                          "3⭐ Coder @Codechef",2000,
-                          "Mern Stack Developer👨🏻‍💻",2000,
-                          "Doubt-Mentor Intern(DSA @Prepbytes)",2500,
+                          "SE@Redbus (Dynamic Pricing)",3000,
+                          "Ex-SDET@Redbus",2500,
+                          "Trailblazer Award Recipient — Twice 🏆",3500,
+                          "3⭐ Coder @Codechef",2500,
                         ]} 
                       
                       />

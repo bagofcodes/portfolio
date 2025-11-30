@@ -125,7 +125,7 @@ export default function Certificate(props) {
 
         </section>
         <div className="footer-image">
-            <img src={require("../../assets/Certificate/shape-bg.png").default} alt="No Internet" />
+            <img src={require("../../assets/Certificate/shape-bg.png")} alt="No Internet" />
         </div>
     </div>
   )

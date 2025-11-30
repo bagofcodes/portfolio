@@ -19,7 +19,7 @@
 .resume-bullet-details{
     flex-grow: 1;
     width: 600px;
-    overflow: hidden;
+    overflow-y: hidden;
     padding: 0 0 0 70px;
 }
 .experience-desc{
@@ -81,6 +81,7 @@
     justify-content: space-evenly;
     height: 360px;
     width: 100%;
+    overflow-y: auto;
 }
 .resume-heading{
     display: flex;

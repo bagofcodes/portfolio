@@ -1,52 +1,53 @@
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
 
+router.post('/contact', async (req, res) => {
+  const { name, email, message } = req.body;
 
-router.post('/contact', (req,res)=>{
-    let data = req.body;
+  // 1. Validate input
+  if (!name || !email || !message) {
+    return res.status(400).json({ msg: "Please fill all the fields." });
+  }
 
-    if(data.name.length === 0 || data.email.length === 0 || data.message.length === 0){
-        return res.json({msg: "Please Fill all the fields"});
+  // 2. Optional: validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ msg: "Please enter a valid email address." });
+  }
+
+  // 3. Configure nodemailer transporter
+  const smtpTransporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'shaw.anshu@gmail.com',
+      pass: process.env.PASS, // use Gmail App Password
     }
+  });
 
-    let smtpTransporter = nodemailer.createTransport({
-        service: 'Gmail',
-        port: 465,
-        auth: {
-            user: 'shaw.anshu@gmail.com',
-            pass: process.env.PASS,
+  // 4. Mail options
+  const mailOptions = {
+    from: email,
+    to: 'shaw.anshu@gmail.com',
+    subject: `Message For Hiring from ${name}`,
+    html: `
+      <h3>Information About the Recruiter</h3>
+      <ul>
+        <li>Name: ${name}</li>
+        <li>Email: ${email}</li>
+      </ul>
+      <h3>Message</h3>
+      <p>${message}</p>
+    `
+  };
 
-        }
-    });
-
-    let mailOptions = {
-        from: data.email,
-        to: 'shaw.anshu@gmail.com',
-        subject: `Message For Hiring from ${data.name}`,
-        html:`
-
-        <h3>Information About the Recruiter<h3/>
-        <ul>
-            <li>Name: ${data.name}<li/>
-            <li>Email: ${data.email}<li/>
-        <ul/>
-        
-        <h3>Message<h3/>
-        <p>${data.message}<p/>
-        `,
-    }
-
-    smtpTransporter.sendMail(mailOptions, (err)=>{
-        try{
-            if(err){
-                return res.status(400).json({msg: "Please Fill All the Fields"});
-            }
-            res.status(200).json({msg: "Thank You for reaching out to Me... Will Revert back Shortly...!!"});
-
-        }catch(err){
-            if(err) return res.status(500).json({msg: "There is server error"});
-        }
-    })
+  // 5. Send mail and handle errors
+  try {
+    await smtpTransporter.sendMail(mailOptions);
+    res.status(200).json({ msg: "Thank you for reaching out! Will revert back shortly." });
+  } catch (err) {
+    console.error("Mail Error:", err);
+    res.status(500).json({ msg: "Failed to send email. Please try again later." });
+  }
 });
 
 module.exports = router;

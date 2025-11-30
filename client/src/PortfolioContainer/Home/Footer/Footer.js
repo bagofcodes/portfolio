@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <div className='footer-container'>
         <div className='footer-parent'>
-            <img src={require("../../../assets/Home/shapebg.png").default} alt="Not loaded" />
+            <img src={require("../../../assets/Home/shapebg.png")} alt="Not loaded" />
 
         </div>
 
