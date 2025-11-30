@@ -17,7 +17,9 @@ router.post('/', async (req, res) => {
 
   // 3. Configure nodemailer transporter
   const smtpTransporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
       user: 'shaw.anshu@gmail.com',
       pass: process.env.PASS, // use Gmail App Password
@@ -26,7 +28,8 @@ router.post('/', async (req, res) => {
 
   // 4. Mail options
   const mailOptions = {
-    from: email,
+    from: 'shaw.anshu@gmail.com',
+    replyTo: email,
     to: 'shaw.anshu@gmail.com',
     subject: `Message For Hiring from ${name}`,
     html: `
