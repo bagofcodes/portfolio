@@ -3,6 +3,11 @@ import ScreenHeading from '../../utilities/ScreenHeading/ScreenHeading';
 import ScrollService from '../../utilities/scrollService';
 import Animations from '../../utilities/Animations';
 import "./Resume.css";
+import edu from "../../assets/Resume/education.svg"
+import wh from "../../assets/Resume/work-history.svg"
+import ps from "../../assets/Resume/progrmming-skills.svg"
+import pj from "../../assets/Resume/projects.svg"
+import int from "../../assets/Resume/interests.svg"
 
 export default function Resume(props) {
   const [selectedBulletIndex, setSelectedBulletIndex] = useState(0);
@@ -42,11 +47,11 @@ export default function Resume(props) {
   };
 
   const resumeBullets = [
-    { label: "Education", logoSrc: "education.svg" },
-    { label: "Work History", logoSrc: "work-history.svg" },
-    { label: "Programming Skills", logoSrc: "programming-skills.svg" },
-    { label: "Projects", logoSrc: "projects.svg" },
-    { label: "Interests", logoSrc: "interests.svg" },
+    { label: "Education", logoSrc: edu },
+    { label: "Work History", logoSrc: wh },
+    { label: "Programming Skills", logoSrc: ps },
+    { label: "Projects", logoSrc: pj },
+    { label: "Interests", logoSrc: int },
   ];
 
   const programmingSkillsDetails = [
@@ -283,7 +288,7 @@ export default function Resume(props) {
       >
         <img
           className="bullet-logo"
-          src={require(`../../assets/Resume/${bullet.logoSrc}`)}
+          src={bullet.logoSrc}
           alt="OOps Problem Occured!"
         />
         <span className="bullet-label">{bullet.label}</span>

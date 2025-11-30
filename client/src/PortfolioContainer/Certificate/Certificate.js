@@ -13,6 +13,7 @@ import icpc from "../../assets/img/Certificates/icpc.jpg";
 import benga from "../../assets/img/Certificates/bengalathon.jpg";
 import sparks from "../../assets/img/Certificates/sparks.jpg";
 import resum from "../../assets/img/Certificates/resume.jpeg";
+import shapebg from "../../assets/Certificate/shape-bg.png";
 import './Certificate.css';
 
 export default function Certificate(props) {
@@ -125,7 +126,7 @@ export default function Certificate(props) {
 
         </section>
         <div className="footer-image">
-            <img src={require("../../assets/Certificate/shape-bg.png")} alt="No Internet" />
+            <img src={shapebg} alt="No Internet" />
         </div>
     </div>
   )
