@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
 
-router.post('/contact', async (req, res) => {
+router.post('/', async (req, res) => {
   const { name, email, message } = req.body;
 
   // 1. Validate input
