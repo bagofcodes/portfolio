@@ -5,7 +5,7 @@ import Animations from '../../utilities/Animations';
 import "./Resume.css";
 import edu from "../../assets/Resume/education.svg"
 import wh from "../../assets/Resume/work-history.svg"
-import ps from "../../assets/Resume/progrmming-skills.svg"
+import ps from "../../assets/Resume/programming-skills.svg"
 import pj from "../../assets/Resume/projects.svg"
 import int from "../../assets/Resume/interests.svg"
 
