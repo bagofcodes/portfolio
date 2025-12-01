@@ -1,7 +1,10 @@
-const router = require('express').Router();
-const nodemailer = require('nodemailer');
+const router = require("express").Router();
+const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-router.post('/', async (req, res) => {
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+router.post("/", async (req, res) => {
   const { name, email, message } = req.body;
 
   // 1. Validate input
@@ -16,40 +19,60 @@ router.post('/', async (req, res) => {
   }
 
   // 3. Configure nodemailer transporter
-  const smtpTransporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: 'shaw.anshu@gmail.com',
-      pass: process.env.PASS, // use Gmail App Password
-    }
-  });
+  // const smtpTransporter = nodemailer.createTransport({
+  //   host: "smtp.gmail.com",
+  //   port: 465,
+  //   secure: true,
+  //   auth: {
+  //     user: 'shaw.anshu@gmail.com',
+  //     pass: process.env.PASS, // use Gmail App Password
+  //   }
+  // });
 
   // 4. Mail options
-  const mailOptions = {
-    from: 'shaw.anshu@gmail.com',
-    replyTo: email,
-    to: 'shaw.anshu@gmail.com',
-    subject: `Message For Hiring from ${name}`,
-    html: `
-      <h3>Information About the Recruiter</h3>
-      <ul>
-        <li>Name: ${name}</li>
-        <li>Email: ${email}</li>
-      </ul>
-      <h3>Message</h3>
-      <p>${message}</p>
-    `
-  };
+  // const mailOptions = {
+  //   from: 'shaw.anshu@gmail.com',
+  //   replyTo: email,
+  //   to: 'shaw.anshu@gmail.com',
+  //   subject: `Message For Hiring from ${name}`,
+  //   html: `
+  //     <h3>Information About the Recruiter</h3>
+  //     <ul>
+  //       <li>Name: ${name}</li>
+  //       <li>Email: ${email}</li>
+  //     </ul>
+  //     <h3>Message</h3>
+  //     <p>${message}</p>
+  //   `
+  // };
 
-  // 5. Send mail and handle errors
+  // // 5. Send mail and handle errors
+  // try {
+  //   await smtpTransporter.sendMail(mailOptions);
+  //   res.status(200).json({ msg: "Thank you for reaching out! Will revert back shortly." });
+  // } catch (err) {
+  //   console.error("Mail Error:", err);
+  //   res.status(500).json({ msg: "Failed to send email. Please try again later." });
+  // }
+
   try {
-    await smtpTransporter.sendMail(mailOptions);
-    res.status(200).json({ msg: "Thank you for reaching out! Will revert back shortly." });
+    await resend.emails.send({
+      from: "shaw.anshu@gmail.com",
+      to: "shaw.anshu@gmail.com",
+      subject: `Recruiting Message from ${name}`,
+      html: `
+        <h3>Recruiter Info</h3>
+        <p>Name: ${name}</p>
+        <p>Email: ${email}</p>
+        <h3>Message</h3>
+        <p>${message}</p>
+      `,
+    });
+
+    res.status(200).json({ msg: "Thank you! I will get back to you shortly." });
   } catch (err) {
     console.error("Mail Error:", err);
-    res.status(500).json({ msg: "Failed to send email. Please try again later." });
+    res.status(500).json({ msg: "Failed to send email!" });
   }
 });
 
